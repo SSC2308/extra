@@ -124,30 +124,6 @@ iguales, y un grupo de K reinas aporta `K·(K−1)/2` pares.
    (`ln(0.001)/ln(0.995)`), sea cual sea N.
 6. **Historia de estados** para la visualización. Se reemplazó XPCE por HTML,
    como sugirió el profesor.
-
-## Lo que tomamos de la otra versión del grupo
-
-Un compañero hizo una versión aparte. La revisamos y unimos lo mejor de ambas:
-
-* **Mejor estado visto y estado de término** (`solucion` /
-  `presupuesto_agotado`) en simulated annealing.
-* **Validación de la entrada** con `must_be(positive_integer, N)`.
-* **Tests con plunit.** Los ampliamos: además de validar soluciones,
-  comprueban que N = 2 y 3 fallan, que hay 92 soluciones para N = 8, que el
-  vecino sigue siendo una permutación, que SA da una sola respuesta, y que el
-  costo O(N log N) coincide con contar los pares uno por uno en 200 tableros al
-  azar.
-
-Al revisarla encontramos dos errores que **no** pasaron a esta versión:
-
-* En su backtracking, `between(1, N, Row)` usaba como límite de filas el
-  mismo `N` que cuenta las reinas que faltan. Como baja en cada columna, la
-  última reina solo podía ir en la fila 1 y no había solución para ningún
-  N ≥ 2. Aquí la fila sale de la lista de filas libres (`select/3`).
-* Su `anneal/10` dejaba un punto de elección por iteración (una cláusula
-  final sin corte). Una sola llamada daba más de mil respuestas al hacer
-  backtracking.
-
 ## Visualización (`html_tablero.pl`)
 
 La página se describe como un término de Prolog con la DCG `html//1` de
@@ -240,8 +216,5 @@ Este extra se hizo con ayuda de IA, como lo permitió el profesor:
 * El código de partida es de **Gemini**, compartido por el profesor
   (`referencia/gemini_original.pl`).
 * La adaptación (corrección de errores, permutaciones, costo O(N log N),
-  benchmark, HTML, tests) y este README se hicieron con **Claude (Anthropic)**.
-* Las ideas del mejor estado visto, la validación y los tests salen de la
-  versión de nuestro compañero.
-* Nosotros lo revisamos, lo corrimos y lo estudiamos predicado por predicado
+  benchmark, HTML, tests) y este README se hicieron con **Claude (Anthropic)**.* Nosotros lo revisamos, lo corrimos y lo estudiamos predicado por predicado
   para poder explicarlo y defenderlo.
